@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TransaksiBean.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;ProjectJSFFix&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">bean</a> &gt; <span class="el_source">TransaksiBean.java</span></div><h1>TransaksiBean.java</h1><pre class="source lang-java linenums">package bean;
+import DAO.DAOLayanan;
+import DAO.DAOTransaksi;
+import java.math.BigDecimal;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import java.util.List;
+import pojo.Layanan;
+import pojo.Transaksi;
+
+@ManagedBean
+@ViewScoped
+public class TransaksiBean {
+
+    private DAOLayanan layananDAO;
+    private List&lt;Layanan&gt; layananList;
+    private BigDecimal totalPendapatan;
+    private DAOTransaksi daoTransaksi; // DAO untuk transaksi
+    private DAOTransaksi transaksiService; // Ini seharusnya DAOTransaksi
+     private Transaksi transaksi;
+
+<span class="nc" id="L22">    public TransaksiBean() {</span>
+<span class="nc" id="L23">        this.layananDAO = new DAOLayanan();</span>
+<span class="nc" id="L24">        this.layananList = layananDAO.retrieveTblLayanan();</span>
+<span class="nc" id="L25">        this.daoTransaksi = new DAOTransaksi(); // Menginisialisasi daoTransaksi</span>
+<span class="nc" id="L26">        this.transaksiService = new DAOTransaksi(); // Menginisialisasi transaksiService</span>
+<span class="nc" id="L27">        this.totalPendapatan = daoTransaksi.getTotalPendapatan();</span>
+<span class="nc" id="L28">        this.transaksi = new Transaksi(); // Inisialisasi objek transaksi di sini</span>
+<span class="nc" id="L29">    }</span>
+
+    // Tambahkan getter untuk totalPendapatan
+    public BigDecimal getTotalPendapatan() {
+<span class="nc" id="L33">        return totalPendapatan;</span>
+    }
+
+    public List&lt;Layanan&gt; getLayananList() {
+<span class="nc" id="L37">        return layananList;</span>
+    }
+
+    public Transaksi getTransaksi() {
+<span class="nc" id="L41">        return transaksi;</span>
+    }
+
+    public void setTransaksi(Transaksi transaksi) {
+<span class="nc" id="L45">        this.transaksi = transaksi;</span>
+<span class="nc" id="L46">    }</span>
+
+    public String saveTransaksi() {
+<span class="nc" id="L49">        daoTransaksi.addTransaksi(transaksi);</span>
+<span class="nc" id="L50">        transaksi = new Transaksi(); // Reset form</span>
+        // Update totalPendapatan setelah menambahkan transaksi baru
+<span class="nc" id="L52">        this.totalPendapatan = daoTransaksi.getTotalPendapatan();</span>
+<span class="nc" id="L53">        return &quot;Transaksi?faces-redirect=true&quot;; // Redirect ke halaman Transaksi</span>
+    }
+
+    public int getTotalPesanan() {
+<span class="nc" id="L57">        return transaksiService.countTotalPesanan(); // Memanggil metode countTotalPesanan</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

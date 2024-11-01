@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="Template.xhtml">
+            <ui:define name="body">
+                <div class="container mt-5">
+                    <h2 class="text-center mb-4">Dashboard</h2>
+                    <div class="row">
+                        <!-- Kotak untuk Total Pelanggan -->
+                        <div class="col-md-4">
+                            <div class="card text-center shadow-lg" style="background-color: #cce5ff; border-radius: 1rem;">
+                                <div class="card-header">
+                                    <h3 style="margin: 0;">Total Pelanggan</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <i class="fas fa-users fa-2x me-2" style="color: #0056b3;"></i> <!-- Ikon pengguna -->
+                                        <h1 class="display-4" style="font-size: 2rem;">
+                                            <strong><h:outputText value="#{pelangganBean.totalPelanggan}" /></strong>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kotak untuk Total Pendapatan -->
+                        <div class="col-md-4">
+                            <div class="card text-center shadow-lg" style="background-color: #e6ffe6; border-radius: 1rem;">
+                                <div class="card-header">
+                                    <h3 style="margin: 0;">Total Pendapatan</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <i class="fas fa-money-bill-wave fa-2x me-2" style="color: #28a745;"></i> <!-- Ikon uang -->
+                                        <h1 class="display-4" style="font-size: 2rem;">
+                                            <strong>Rp. <h:outputText value="#{transaksiBean.totalPendapatan}" /></strong>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kotak untuk Total Pesanan -->
+                        <div class="col-md-4">
+                            <div class="card text-center shadow-lg" style="background-color: #ffeeba; border-radius: 1rem;">
+                                <div class="card-header">
+                                    <h3 style="margin: 0;">Total Pesanan</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <i class="fas fa-shopping-cart fa-2x me-2" style="color: #856404;"></i>
+                                        <h1 class="display-4" style="font-size: 2rem;">
+                                            <strong><h:outputText value="#{transaksiBean.totalPesanan}" /></strong>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <h2 class="text-center mb-4">Daftar Transaksi</h2>
+                    <h:form>
+                        <h:dataTable value="#{transaksi.allRecords}" var="transaksi" class="table table-bordered table-striped shadow-lg" style="background-color: #f8f9fa; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Nama Pelanggan</h6>
+                                </f:facet>
+                                <h:outputText value="#{transaksi.namaPelanggan}" style="text-align: center; font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Nama Layanan</h6>
+                                </f:facet>
+                                <h:outputText value="#{transaksi.layanan.namaLayanan}" style="text-align: center; font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Tanggal Transaksi</h6>
+                                </f:facet>
+                                <h:outputText value="#{transaksi.tanggalTransaksi}" style="text-align: center; font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Total Berat</h6>
+                                </f:facet>
+                                <h:outputText value="#{transaksi.totalBerat}" style="text-align: center; font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Total Harga</h6>
+                                </f:facet>
+                                <h:outputText value="#{transaksi.totalHarga}" style="text-align: center; font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Status</h6>
+                                </f:facet>
+                                <h:outputText value="#{transaksi.status}" 
+                                              style="background-color: #{transaksi.status == 'Diterima' ? 'red' : (transaksi.status == 'Diproses' ? 'gray' : (transaksi.status == 'Selesai' ? 'yellow' : (transaksi.status == 'Diambil' ? 'green' : 'transparent')))}; border-radius: 0.5rem; padding: 5px; color: white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); text-align: center; display: block; width: fit-content; margin: 0 auto; font-weight: normal;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Status Pembayaran</h6>
+                                </f:facet>
+                                <h:outputText value="#{transaksi.statusPembayaran}" 
+                                              style="background-color: #{transaksi.statusPembayaran == 'SUDAH BAYAR' ? 'green' : 'red'}; border-radius: 0.5rem; padding: 5px; color: white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); text-align: center; display: block; width: fit-content; margin: 0 auto; font-weight: normal;" />
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+
+                <div class="container mt-5">
+                    <h2 class="text-center mb-4">Daftar Pelanggan</h2>
+                    <h:form>
+                        <h:dataTable value="#{pelanggan.allRecords}" var="pelanggan" class="table table-bordered table-striped shadow-lg" style="background-color: #f8f9fa; border-radius: 0.5rem;">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Nama Pelanggan</h6>
+                                </f:facet>
+                                <h:outputText value="#{pelanggan.namaPelanggan}" style="font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">No Telepon</h6>
+                                </f:facet>
+                                <h:outputText value="#{pelanggan.noTelepon}" style="font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Tanggal Daftar</h6>
+                                </f:facet>
+                                <h:outputText value="#{pelanggan.tanggalDaftar}" style="font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

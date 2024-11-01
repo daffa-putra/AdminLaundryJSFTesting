@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="Template.xhtml">
+            <ui:define name="body">
+                 <div class="d-flex justify-content-start mt-3 mb-3">
+                    <h:link value="Tabel" outcome="TabelPelanggan?faces-redirect=true" styleClass="btn btn-secondary me-2" />
+                    <h:link value="Edit" outcome="EditPelanggan?faces-redirect=true" styleClass="btn btn-secondary" />
+                </div>
+         <div class="container mt-5">
+                    <h2 class="text-center mb-4">Daftar Pelanggan</h2>
+                    <h:form>
+                        <h:dataTable value="#{pelanggan.allRecords}" var="pelanggan" class="table table-bordered table-striped shadow-lg" style="background-color: #f8f9fa; border-radius: 0.5rem;">
+                             <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Id Pelanggan</h6>
+                                </f:facet>
+                                 <h:outputText value="#{pelanggan.idPelanggan}" style="font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Nama Pelanggan</h6>
+                                </f:facet>
+                                <h:outputText value="#{pelanggan.namaPelanggan}" style="font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">No Telepon</h6>
+                                </f:facet>
+                                <h:outputText value="#{pelanggan.noTelepon}" style="font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h6 class="text-primary text-center" style="font-size: 0.9rem;">Tanggal Daftar</h6>
+                                </f:facet>
+                                <h:outputText value="#{pelanggan.tanggalDaftar}" style="font-weight: normal; color: #333; font-size: 0.9rem;" />
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+        </ui:define>
+        </ui:composition>
+    </body>
+</html>

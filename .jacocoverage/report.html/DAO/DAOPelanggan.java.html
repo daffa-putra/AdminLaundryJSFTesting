@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DAOPelanggan.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;ProjectJSFFix&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">DAO</a> &gt; <span class="el_source">DAOPelanggan.java</span></div><h1>DAOPelanggan.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DAO;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import pojo.LaundryUtil;
+import pojo.Pelanggan;
+
+/**
+ *
+ * @author ASUS
+ */
+<span class="fc" id="L20">public class DAOPelanggan {</span>
+    
+<span class="fc" id="L22">private boolean exceptionCaught = false;</span>
+    public void addPelanggan(Pelanggan plg) {
+<span class="fc" id="L24">        Transaction trans = null;</span>
+<span class="fc" id="L25">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+        try {
+<span class="fc" id="L27">            trans = session.beginTransaction();</span>
+<span class="fc" id="L28">            session.save(plg);</span>
+<span class="fc" id="L29">            trans.commit();</span>
+<span class="fc" id="L30">        } catch (Exception e) {</span>
+<span class="fc" id="L31">            e.printStackTrace();</span>
+<span class="fc" id="L32">            exceptionCaught = true;</span>
+<span class="fc" id="L33">        }</span>
+<span class="fc" id="L34">    }</span>
+    
+        public boolean isExceptionCaught() {
+<span class="fc" id="L37">        return exceptionCaught;</span>
+    }
+
+    public List&lt;Pelanggan&gt; getbyID(Integer idPelanggan) {
+<span class="fc" id="L41">        Pelanggan plg = new Pelanggan();</span>
+<span class="fc" id="L42">        List&lt;Pelanggan&gt; lPlg = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L43">        Transaction trans = null;</span>
+<span class="fc" id="L44">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+        try {
+<span class="fc" id="L46">            trans = session.beginTransaction();</span>
+<span class="fc" id="L47">            Query query = session.createQuery(&quot;from Pelanggan where idPelanggan = :id&quot;);</span>
+<span class="fc" id="L48">            query.setInteger(&quot;id&quot;, idPelanggan);</span>
+<span class="fc" id="L49">            lPlg = query.list();</span>
+<span class="fc" id="L50">            trans.commit();</span>
+<span class="nc" id="L51">        } catch (Exception e) {</span>
+<span class="nc" id="L52">            e.printStackTrace();</span>
+<span class="nc" id="L53">            exceptionCaught = true;</span>
+<span class="fc" id="L54">        }</span>
+<span class="fc" id="L55">        return lPlg;</span>
+    }
+
+    public List&lt;Pelanggan&gt; retrieveTblPelanggan() {
+<span class="nc" id="L59">        List&lt;Pelanggan&gt; stud = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L60">        Transaction trans = null;</span>
+<span class="nc" id="L61">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+        try {
+<span class="nc" id="L63">            trans = session.beginTransaction();</span>
+<span class="nc" id="L64">            Query query = session.createQuery(&quot;from Pelanggan&quot;);</span>
+<span class="nc" id="L65">            stud = query.list();</span>
+<span class="nc" id="L66">            trans.commit();</span>
+<span class="nc" id="L67">        } catch (Exception e) {</span>
+<span class="nc" id="L68">            e.printStackTrace();</span>
+<span class="nc" id="L69">        }</span>
+<span class="nc" id="L70">        return stud;</span>
+    }
+
+    public long getTotalPelanggan() {
+<span class="fc" id="L74">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L75">        long count = 0;</span>
+        try {
+            // Tidak menggunakan parameter kedua (tipe kelas)
+<span class="fc" id="L78">            Query query = session.createQuery(&quot;SELECT COUNT(p.idPelanggan) FROM Pelanggan p&quot;);</span>
+<span class="fc" id="L79">            count = (Long) query.uniqueResult(); // Menggunakan uniqueResult() untuk hasil tunggal</span>
+        } finally {
+<span class="pc" id="L81">            session.close();</span>
+<span class="fc" id="L82">        }</span>
+<span class="fc" id="L83">        return count;</span>
+    }
+
+    public void deletePelanggan(Integer idP) {
+<span class="fc" id="L87">        Transaction trans = null;</span>
+<span class="fc" id="L88">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+        try {
+<span class="fc" id="L90">            trans = session.beginTransaction();</span>
+<span class="fc" id="L91">            Pelanggan plg = (Pelanggan) session.get(Pelanggan.class, idP);</span>
+<span class="fc" id="L92">            session.delete(plg);</span>
+<span class="fc" id="L93">            trans.commit();</span>
+<span class="fc" id="L94">        } catch (Exception e) {</span>
+<span class="fc" id="L95">            e.printStackTrace();</span>
+<span class="fc" id="L96">        }</span>
+<span class="fc" id="L97">    }</span>
+
+    public boolean updatePelanggan(Pelanggan lyn) {
+<span class="fc" id="L100">        boolean success = true;</span>
+<span class="fc" id="L101">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L102">        Transaction tx = session.beginTransaction();</span>
+        try {
+<span class="fc" id="L104">            session.update(lyn);</span>
+<span class="nc" id="L105">            tx.commit();</span>
+<span class="fc" id="L106">        } catch (Exception e) {</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">            if (tx != null) {</span>
+<span class="fc" id="L108">                tx.rollback();</span>
+            }
+<span class="fc" id="L110">            System.out.println(&quot;[ERROR] DAOPelanggan.update: &quot; + e.getMessage());</span>
+<span class="fc" id="L111">            e.printStackTrace();</span>
+<span class="fc" id="L112">            success = false;</span>
+<span class="nc" id="L113">        }</span>
+<span class="fc" id="L114">        return success;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

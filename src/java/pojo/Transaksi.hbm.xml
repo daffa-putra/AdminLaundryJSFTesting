@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 30, 2024 2:28:57 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojo.Transaksi" table="transaksi" catalog="laundry" optimistic-lock="version">
+        <id name="idTransaksi" type="java.lang.Integer">
+            <column name="id_transaksi" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="layanan" class="pojo.Layanan" fetch="select">
+            <column name="id_layanan" />
+        </many-to-one>
+        <property name="namaPelanggan" type="string">
+            <column name="nama_pelanggan" length="55" not-null="true" />
+        </property>
+        <property name="tanggalTransaksi" type="date">
+            <column name="tanggal_transaksi" length="10" not-null="true" />
+        </property>
+        <property name="totalBerat" type="big_decimal">
+            <column name="total_berat" precision="10" not-null="true" />
+        </property>
+        <property name="totalHarga" type="big_decimal">
+            <column name="total_harga" precision="10" not-null="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="50" />
+        </property>
+        <property name="statusPembayaran" type="string">
+            <column name="status_pembayaran" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

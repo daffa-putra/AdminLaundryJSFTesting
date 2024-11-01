@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 30, 2024 2:28:57 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojo.Layanan" table="layanan" catalog="laundry" optimistic-lock="version">
+        <id name="idLayanan" type="java.lang.Integer">
+            <column name="id_layanan" />
+            <generator class="identity" />
+        </id>
+        <property name="namaLayanan" type="string">
+            <column name="nama_layanan" not-null="true" />
+        </property>
+        <property name="deskripsi" type="string">
+            <column name="deskripsi" length="65535" />
+        </property>
+        <property name="hargaPerKilo" type="big_decimal">
+            <column name="harga_per_kilo" precision="10" not-null="true" />
+        </property>
+        <set name="transaksis" table="transaksi" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_layanan" />
+            </key>
+            <one-to-many class="pojo.Transaksi" />
+        </set>
+    </class>
+</hibernate-mapping>

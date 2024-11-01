@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Form Layanan</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
+    </h:head>
+    <h:body>
+        <ui:composition template="Template.xhtml"> 
+            <ui:define name="body">
+                <!-- Tombol Form dan Tabel -->
+                <div class="d-flex justify-content-start mt-3 mb-3">
+                    <h:link value="Form" outcome="Layanan?faces-redirect=true" styleClass="btn btn-primary me-2" />
+                    <h:link value="Tabel" outcome="TabelLayanan?faces-redirect=true" styleClass="btn btn-secondary me-2" />
+                    <h:link value="Edit" outcome="EditLayanan?faces-redirect=true" styleClass="btn btn-secondary" />
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="text-center">Form Layanan</h2>
+                    </div>
+                    <div class="card-body bg-light">
+                        <h:form>
+                            <div class="container mt-4">
+
+                                <!-- Pesan sukses setelah submit -->
+                                <h:messages globalOnly="true" style="color:red" layout="table" />
+
+                                <!-- Kotak untuk Form -->
+                                <div class="p-4 border rounded shadow-sm bg-white">
+
+                                    <!-- Nama Layanan -->
+                                    <div class="form-group row mb-3">
+                                        <label for="namaLayanan" class="col-sm-3 col-form-label fw-bold">Nama Layanan</label>
+                                        <div class="col-sm-9">
+                                            <h:inputText id="namaLayanan" value="#{layanan.namaLayanan}" class="form-control" />
+                                            <h:message for="namaLayanan" style="color:red"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Deskripsi -->
+                                    <div class="form-group row mb-3">
+                                        <label for="deskripsi" class="col-sm-3 col-form-label fw-bold">Deskripsi</label>
+                                        <div class="col-sm-9">
+                                            <h:inputTextarea id="deskripsi" value="#{layanan.deskripsi}" rows="3" class="form-control"/>
+                                            <h:message for="deskripsi" style="color:red"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Harga per Kilo -->
+                                    <div class="form-group row mb-3">
+                                        <label for="hargaPerKilo" class="col-sm-3 col-form-label fw-bold">Harga per Kilo</label>
+                                        <div class="col-sm-9">
+                                            <h:inputText id="hargaPerKilo" value="#{layanan.hargaPerKilo}" class="form-control">
+                                                <f:convertNumber pattern="#,##0.00" />
+                                            </h:inputText>
+                                            <h:message for="hargaPerKilo" style="color:red"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tombol Save -->
+                                    <div class="form-group row mb-3">
+                                        <div class="col-sm-10 offset-sm-2">
+                                            <h:commandButton value="Save" action="#{layanan.save}" class="btn btn-success" style="margin-right: 10px;" />
+                                        </div>
+                                    </div>
+
+                                </div> <!-- End of Form Box -->
+
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+
+    </h:body>
+</html>

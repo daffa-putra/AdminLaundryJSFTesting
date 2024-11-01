@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Form Pelanggan</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="Template.xhtml"> 
+            <ui:define name="body">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="text-center">Form Pelanggan</h2>
+                    </div>
+                    <div class="card-body bg-light">
+                        <h:form>
+                            <div class="container mt-4">
+
+                                <!-- Pesan sukses setelah submit -->
+                                <h:messages globalOnly="true" style="color:red" layout="table" />
+
+                                <!-- Nama Pelanggan -->
+                                <div class="form-group row mb-3">
+                                    <label for="namaPelanggan" class="col-sm-2 col-form-label fw-bold">Nama Pelanggan</label>
+                                    <div class="col-sm-10">
+                                        <h:inputText id="namaPelanggan" value="#{pelanggan.namaPelanggan}" class="form-control" />
+                                        <h:message for="namaPelanggan" style="color:red"/>
+                                    </div>
+                                </div>
+
+                                <!-- No Telp -->
+                                <div class="form-group row mb-3">
+                                    <label for="noTelp" class="col-sm-2 col-form-label fw-bold">No Telp</label>
+                                    <div class="col-sm-10">
+                                        <h:inputText id="noTelp" value="#{pelanggan.noTelepon}" class="form-control" />
+                                        <h:message for="noTelp" style="color:red"/>
+                                    </div>
+                                </div>
+
+                                <!-- Tanggal Daftar -->
+                                <div class="form-group row mb-3">
+                                    <label for="tanggalDaftar" class="col-sm-2 col-form-label fw-bold">Tanggal Daftar</label>
+                                    <div class="col-sm-10">
+                                        <h:inputText id="tanggalDaftar" value="#{pelanggan.tanggalDaftar}" class="form-control">
+                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                            <f:passThroughAttribute name="type" value="date" />
+                                        </h:inputText>
+                                        <h:message for="tanggalDaftar" style="color:red"/>
+                                    </div>
+                                </div>
+
+                                <!-- Tombol Save dan Next -->
+                                <div class="form-group row mb-3">
+                                    <div class="col-sm-10 offset-sm-2">
+                                        <h:commandButton value="Save" action="#{pelanggan.save}" class="btn btn-success" style="margin-right: 10px;" />
+                                        <h:commandButton value="Next" action="Transaksi?faces-redirect=true" class="btn btn-primary" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </h:body>
+</html>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DAOLayanan.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;ProjectJSFFix&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">DAO</a> &gt; <span class="el_source">DAOLayanan.java</span></div><h1>DAOLayanan.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DAO;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import pojo.LaundryUtil;
+import pojo.Layanan;
+
+/**
+ *
+ * @author ASUS
+ */
+<span class="fc" id="L20">public class DAOLayanan {</span>
+    
+<span class="fc" id="L22"> private boolean exceptionCaught = false;</span>
+ 
+    public void addLayanan(Layanan lyn) {
+<span class="fc" id="L25">        Transaction trans = null;</span>
+<span class="fc" id="L26">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+        try {
+<span class="fc" id="L28">            trans = session.beginTransaction();</span>
+<span class="fc" id="L29">            session.save(lyn);</span>
+<span class="fc" id="L30">            trans.commit();</span>
+<span class="fc" id="L31">        } catch (Exception e) {</span>
+<span class="fc" id="L32">            e.printStackTrace();</span>
+<span class="fc" id="L33">            exceptionCaught = true;</span>
+<span class="fc" id="L34">        }</span>
+<span class="fc" id="L35">    }</span>
+    
+    public boolean isExceptionCaught() {
+<span class="fc" id="L38">        return exceptionCaught;</span>
+    }
+   
+
+    public List&lt;Layanan&gt; retrieveTblLayanan() {
+<span class="fc" id="L43">        List&lt;Layanan&gt; stud = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L44">        Transaction trans = null;</span>
+<span class="fc" id="L45">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+        try {
+<span class="fc" id="L47">            trans = session.beginTransaction();</span>
+<span class="fc" id="L48">            Query query = session.createQuery(&quot;from Layanan&quot;);</span>
+<span class="fc" id="L49">            stud = query.list();</span>
+<span class="fc" id="L50">            trans.commit();</span>
+<span class="nc" id="L51">        } catch (Exception e) {</span>
+<span class="nc" id="L52">            e.printStackTrace();</span>
+<span class="fc" id="L53">        }</span>
+<span class="fc" id="L54">        return stud;</span>
+    }
+
+    public void deleteLayanan(Integer idP) {
+<span class="fc" id="L58">        Transaction trans = null;</span>
+<span class="fc" id="L59">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+        try {
+<span class="fc" id="L61">            trans = session.beginTransaction();</span>
+<span class="fc" id="L62">            Layanan plg = (Layanan) session.get(Layanan.class, idP);</span>
+<span class="fc" id="L63">            session.delete(plg);</span>
+<span class="fc" id="L64">            trans.commit();</span>
+<span class="fc" id="L65">        } catch (Exception e) {</span>
+<span class="fc" id="L66">            e.printStackTrace();</span>
+<span class="fc" id="L67">            exceptionCaught = true;</span>
+<span class="fc" id="L68">        }</span>
+<span class="fc" id="L69">    }</span>
+
+    public Layanan getById(Integer idLayanan) {
+<span class="fc" id="L72">        Layanan layanan = null;</span>
+<span class="fc" id="L73">        Transaction trans = null;</span>
+<span class="fc" id="L74">        Session session = LaundryUtil.getSessionFactory().openSession();</span>
+        try {
+<span class="fc" id="L76">            trans = session.beginTransaction();</span>
+<span class="fc" id="L77">            layanan = (Layanan) session.get(Layanan.class, idLayanan);</span>
+<span class="fc" id="L78">            trans.commit();</span>
+<span class="nc" id="L79">        } catch (Exception e) {</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            if (trans != null) {</span>
+<span class="nc" id="L81">                trans.rollback();</span>
+            }
+<span class="nc" id="L83">            e.printStackTrace();</span>
+<span class="nc" id="L84">            exceptionCaught = true;</span>
+        } finally {
+<span class="pc" id="L86">            session.close();</span>
+<span class="pc" id="L87">        }</span>
+<span class="fc" id="L88">        return layanan;</span>
+    }
+
+    public boolean updateLayanan(Layanan lyn) {
+<span class="fc" id="L92">    boolean success = false;</span>
+<span class="fc" id="L93">    Session session = LaundryUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L94">    Transaction tx = session.beginTransaction();</span>
+    try {
+<span class="fc" id="L96">        session.update(lyn);</span>
+<span class="nc" id="L97">        tx.commit();</span>
+<span class="nc" id="L98">        success = true; // Set nilai success menjadi true jika update berhasil</span>
+<span class="fc" id="L99">    } catch (Exception e) {</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (tx != null) {</span>
+<span class="fc" id="L101">            tx.rollback();</span>
+        }
+<span class="fc" id="L103">        System.out.println(&quot;[ERROR] DAOLayanan.update: &quot; + e.getMessage());</span>
+<span class="fc" id="L104">        e.printStackTrace();</span>
+<span class="fc" id="L105">        success = false;</span>
+    } finally {
+<span class="pc" id="L107">        session.close(); // Pastikan untuk menutup sesi</span>
+<span class="pc" id="L108">    }</span>
+<span class="fc" id="L109">    return success;</span>
+}
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

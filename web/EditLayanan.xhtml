@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="Template.xhtml">
+            <ui:define name="body">
+                <div class="container mt-4">
+                    <div class="d-flex justify-content-start mt-3 mb-3">
+                        <h:link value="Form" outcome="Layanan?faces-redirect=true" styleClass="btn btn-primary me-2" />
+                        <h:link value="Tabel" outcome="TabelLayanan?faces-redirect=true" styleClass="btn btn-secondary me-2" />
+                        <h:link value="Edit" outcome="EditLayanan?faces-redirect=true" styleClass="btn btn-secondary" />
+                    </div>
+                    
+                    <h2 class="mb-4">Cari Data Layanan</h2>
+
+                    <!-- Pemberitahuan Pesan -->
+                    <h:messages globalOnly="true" styleClass="alert alert-warning" />
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h:outputLabel style="font-family: Centaur; font-size: 24px">ID Layanan:</h:outputLabel>
+                            <b:inputText style="font-family: Centaur; font-size: 18px" placeholder="Masukkan ID Dicari" 
+                                         value="#{layanan.idLayanan}" class="form-control" requiredMessage="ID Layanan harus diisi."/>
+                        </div>
+                        <div class="col-md-4">
+                            <center>
+                                <b:commandButton look="primary btn-success" value="Cari Data Layanan" 
+                                                 icon="search" action="#{layanan.getbyid}" class="btn btn-success mt-4" />
+                            </center>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <h:outputLabel style="font-family: Centaur; font-size: 24px">Nama:</h:outputLabel>
+                            <b:inputText style="font-family: Centaur; font-size: 18px" value="#{layanan.namaLayanan}" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <h:outputLabel style="font-family: Centaur; font-size: 24px">Deskripsi:</h:outputLabel>
+                            <b:inputText style="font-family: Centaur; font-size: 18px" value="#{layanan.deskripsi}" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <h:outputLabel style="font-family: Centaur; font-size: 24px">Harga Per Kilo:</h:outputLabel>
+                            <b:inputText style="font-family: Centaur; font-size: 18px" value="#{layanan.hargaPerKilo}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-center">
+                            <b:commandButton look="primary btn-success" value="UPDATE" icon="edit" 
+                                             action="#{layanan.update}" class="btn btn-warning me-2" />
+                            <b:commandButton look="primary btn-success" value="HAPUS" icon="trash" 
+                                             action="#{layanan.delete}" class="btn btn-danger" />
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

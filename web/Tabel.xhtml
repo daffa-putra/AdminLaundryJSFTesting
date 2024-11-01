@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="Template.xhtml"> 
+            <ui:define name="body">
+                <div class="container mt-4">
+                    <div class="d-flex justify-content-start mt-3 mb-3">
+                        <h:link value="Tabel" outcome="Tabel?faces-redirect=true" styleClass="btn btn-secondary" />
+                        <h:link value="Edit" outcome="EditTransaksi?faces-redirect=true" styleClass="btn btn-secondary" />
+                    </div>
+                </div>
+
+                <div class="container mt-5">
+                    <h2 class="text-center">Daftar Transaksi</h2>
+                    <h:form>
+                        <h:dataTable value="#{transaksi.allRecords}" var="transaksi" class="table table-bordered table-striped shadow-lg" style="background-color: #f8f9fa;">
+                            <h:column>
+                                <f:facet name="header">ID Transaksi</f:facet>
+                                <h:outputText value="#{transaksi.idTransaksi}" style="text-align: center;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Nama Pelanggan</f:facet>
+                                <h:outputText value="#{transaksi.namaPelanggan}" style="text-align: center;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Nama Layanan</f:facet>
+                                <h:outputText value="#{transaksi.layanan.namaLayanan}" style="text-align: center;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Tanggal Transaksi</f:facet>
+                                <h:outputText value="#{transaksi.tanggalTransaksi}" style="text-align: center;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Total Berat</f:facet>
+                                <h:outputText value="#{transaksi.totalBerat}" style="text-align: center;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Total Harga</f:facet>
+                                <h:outputText value="#{transaksi.totalHarga}" style="text-align: center;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Status</f:facet>
+                                <h:outputText value="#{transaksi.status}" 
+                                              style="background-color: #{transaksi.status == 'Diterima' ? 'red' : (transaksi.status == 'Diproses' ? 'gray' : (transaksi.status == 'Selesai' ? 'yellow' : (transaksi.status == 'Diambil' ? 'green' : 'transparent')))}; border-radius: 0.5rem; padding: 5px; color: white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); text-align: center; display: block; width: fit-content; margin: 0 auto;" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Status Pembayaran</f:facet>
+                                <h:outputText value="#{transaksi.statusPembayaran}" 
+                                              style="background-color: #{transaksi.statusPembayaran == 'SUDAH BAYAR' ? 'green' : 'red'}; border-radius: 0.5rem; padding: 5px; color: white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); text-align: center; display: block; width: fit-content; margin: 0 auto;" />
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+
+
+            </ui:define>
+        </ui:composition>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+
+    </h:body>
+</html>
